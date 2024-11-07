@@ -48,7 +48,7 @@
     let minValue, maxValue;
 
     function plot_contour(fileNumber) {
-        d3.json("dicomData/" + fileNumber).then(data => {
+        d3.json("/dicomData/" + fileNumber).then(data => {
             d3.select("svg").selectAll("*").remove();
 
             let m = 256, n = 256;
