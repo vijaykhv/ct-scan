@@ -31,7 +31,6 @@
     <div class="main">
         <div id="files_container">
             <select id="files" name="file" size="10" multiple="multiple">
-                <!-- Options will be populated by JavaScript -->
             </select>
         </div>
         <div class="canvas">
@@ -43,9 +42,9 @@
 <script>
     const svg = d3.select("svg");
     const path = d3.geoPath();
-    let currentBinCount = document.querySelector("#binCount").value;
-    let currentMin = document.querySelector("#minThreshold").value;
-    let currentMax = document.querySelector("#maxThreshold").value;
+    let currentBinCount = parseInt(document.querySelector("#binCount").value);
+    let currentMin = parseInt(document.querySelector("#minThreshold").value);
+    let currentMax = parseInt(document.querySelector("#maxThreshold").value);
 
     function plot_contour(filePath) {
         d3.json(filePath).then(data => {
@@ -55,13 +54,13 @@
             data.forEach(col => { col.forEach(d => values_density.push(+d)) });
 
             const min_max = d3.extent(values_density, d => d);
-            currentMin = min_max[0];
-            currentMax = min_max[1];
+            document.querySelector("#minThreshold").min = min_max[0];
+            document.querySelector("#minThreshold").max = min_max[1];
+            document.querySelector("#maxThreshold").min = min_max[0];
+            document.querySelector("#maxThreshold").max = min_max[1];
 
-            document.querySelector("#minThreshold").min = currentMin;
-            document.querySelector("#minThreshold").max = currentMax;
-            document.querySelector("#maxThreshold").min = currentMin;
-            document.querySelector("#maxThreshold").max = currentMax;
+            currentMin = parseFloat(document.querySelector("#minThreshold").value);
+            currentMax = parseFloat(document.querySelector("#maxThreshold").value);
 
             function draw(binCount, minThreshold, maxThreshold) {
                 const colors = d3.scaleLinear()
@@ -135,24 +134,22 @@
 
     filesList();
 
-    // Load the first file by default
     plot_contour("dicomData/brain_001.dcm.json");
 
-    // Update plot when sliders change
     document.querySelector("#binCount").addEventListener("input", () => {
-        currentBinCount = document.querySelector("#binCount").value;
+        currentBinCount = parseInt(document.querySelector("#binCount").value);
         const selectedOption = document.querySelector("#files").value || "dicomData/brain_001.dcm.json";
         plot_contour(selectedOption);
     });
 
     document.querySelector("#minThreshold").addEventListener("input", () => {
-        currentMin = document.querySelector("#minThreshold").value;
+        currentMin = parseFloat(document.querySelector("#minThreshold").value);
         const selectedOption = document.querySelector("#files").value || "dicomData/brain_001.dcm.json";
         plot_contour(selectedOption);
     });
 
     document.querySelector("#maxThreshold").addEventListener("input", () => {
-        currentMax = document.querySelector("#maxThreshold").value;
+        currentMax = parseFloat(document.querySelector("#maxThreshold").value);
         const selectedOption = document.querySelector("#files").value || "dicomData/brain_001.dcm.json";
         plot_contour(selectedOption);
     });
