@@ -106,11 +106,11 @@
 
     function filesList() {
         const files_data = [
-            "brain_001.dcm.json", "brain_002.dcm.json", "brain_003.dcm.json", "brain_004.dcm.json",
-            "brain_005.dcm.json", "brain_006.dcm.json", "brain_007.dcm.json", "brain_008.dcm.json",
-            "brain_009.dcm.json", "brain_010.dcm.json", "brain_011.dcm.json", "brain_012.dcm.json",
-            "brain_013.dcm.json", "brain_014.dcm.json", "brain_015.dcm.json", "brain_016.dcm.json",
-            "brain_017.dcm.json", "brain_018.dcm.json", "brain_019.dcm.json", "brain_020.dcm.json"
+            "/dicomData/brain_001.dcm.json", "/dicomData/brain_002.dcm.json", "/dicomData/brain_003.dcm.json", "/dicomData/brain_004.dcm.json",
+            "/dicomData/brain_005.dcm.json", "/dicomData/brain_006.dcm.json", "/dicomData/brain_007.dcm.json", "/dicomData/brain_008.dcm.json",
+            "/dicomData/brain_009.dcm.json", "/dicomData/brain_010.dcm.json", "/dicomData/brain_011.dcm.json", "/dicomData/brain_012.dcm.json",
+            "/dicomData/brain_013.dcm.json", "/dicomData/brain_014.dcm.json", "/dicomData/brain_015.dcm.json", "/dicomData/brain_016.dcm.json",
+            "/dicomData/brain_017.dcm.json", "/dicomData/brain_018.dcm.json", "/dicomData/brain_019.dcm.json", "/dicomData/brain_020.dcm.json"
         ];
 
         const selectElement = d3.select("#files");
@@ -129,7 +129,7 @@
     }
 
     filesList();
-    plot_contour("brain_001.dcm.json");
+    plot_contour("/dicomData/brain_001.dcm.json");
 </script>
 </body>
 </html>
