@@ -47,7 +47,7 @@
     let currentMax = parseInt(document.querySelector("#maxThreshold").value);
 
     function plot_contour(filePath) {
-        d3.json(filePath).then(data => {
+        d3.json(filePath + '?t=' + new Date().getTime()).then(data => {
             d3.select("svg").selectAll("*").remove();
             let m = 256, n = 256;
             let values_density = [];
