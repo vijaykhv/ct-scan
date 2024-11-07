@@ -48,7 +48,7 @@
     let minValue, maxValue;
 
     function plot_contour(fileNumber) {
-        d3.json("dicomData/" + fileNumber).then(data => {
+        d3.json(fileNumber).then(data => {
             d3.select("svg").selectAll("*").remove();
 
             let m = 256, n = 256;
@@ -91,16 +91,9 @@
 
             draw(currentBinCount, currentMin, currentMax);
 
-            document.addEventListener("input", e => {
-                currentBinCount = document.querySelector("#binCount").value;
-                currentMin = document.querySelector("#minThreshold").value;
-                currentMax = document.querySelector("#maxThreshold").value;
-
-                const tagId = e.target.id;
-                if (tagId === "binCount" || tagId === "minThreshold" || tagId === "maxThreshold") {
-                    draw(currentBinCount, currentMin, currentMax);
-                }
-            });
+        }).catch(error => {
+            console.error("Error loading data:", error);
+            alert("Failed to load data. Please check the console for more details.");
         });
     }
 
@@ -130,6 +123,22 @@
 
     filesList();
     plot_contour("dicomData/brain_001.dcm.json");
+
+    // Attach individual listeners to each slider
+    document.querySelector("#binCount").addEventListener("input", () => {
+        currentBinCount = document.querySelector("#binCount").value;
+        plot_contour(document.querySelector("#files").value || "dicomData/brain_001.dcm.json");
+    });
+
+    document.querySelector("#minThreshold").addEventListener("input", () => {
+        currentMin = document.querySelector("#minThreshold").value;
+        plot_contour(document.querySelector("#files").value || "dicomData/brain_001.dcm.json");
+    });
+
+    document.querySelector("#maxThreshold").addEventListener("input", () => {
+        currentMax = document.querySelector("#maxThreshold").value;
+        plot_contour(document.querySelector("#files").value || "dicomData/brain_001.dcm.json");
+    });
 </script>
 </body>
 </html>
